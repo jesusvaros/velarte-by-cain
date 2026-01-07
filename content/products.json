@@ -1,0 +1,77 @@
+[
+  {
+    "slug": "lavender-calm",
+    "name": "Lavender Calm",
+    "shortDescription": "Soothing French lavender with a hint of vanilla.",
+    "description": "Indulge in the peaceful aroma of our Lavender Calm candle. Hand-poured with premium soy wax and infused with high-quality French lavender essential oils, this candle is perfect for winding down after a long day. The subtle hint of vanilla adds a touch of sweetness to the floral notes.",
+    "images": ["https://images.unsplash.com/photo-1572726710706-758d9e419af0?q=80&w=800&auto=format&fit=crop"],
+    "priceFrom": 18,
+    "tags": ["Floral", "Relaxing", "Soy Wax"],
+    "variants": [
+      { "id": "small-lavender", "label": "Small (100g)", "price": 18 },
+      { "id": "large-lavender", "label": "Large (250g)", "price": 28 }
+    ]
+  },
+  {
+    "slug": "midnight-forest",
+    "name": "Midnight Forest",
+    "shortDescription": "Deep pine, cedarwood, and a touch of crisp night air.",
+    "description": "Transport yourself to a moonlit woodland with Midnight Forest. This earthy scent combines robust pine and cedarwood with a refreshing cool breeze finish. Ideal for creating a cozy, grounded atmosphere in your home.",
+    "images": ["https://images.unsplash.com/photo-1603006905003-be475563bc59?q=80&w=800&auto=format&fit=crop"],
+    "priceFrom": 20,
+    "tags": ["Woody", "Earthy", "Atmospheric"],
+    "variants": [
+      { "id": "standard-forest", "label": "Standard (200g)", "price": 20 }
+    ]
+  },
+  {
+    "slug": "citrus-sunshine",
+    "name": "Citrus Sunshine",
+    "shortDescription": "Bright bergamot, lemon zest, and sweet orange.",
+    "description": "Energize your space with the vibrant Citrus Sunshine. A zesty blend of Italian bergamot, fresh lemon peel, and sun-ripened oranges. This candle is designed to uplift your mood and bring a burst of light into any room.",
+    "images": ["https://images.unsplash.com/photo-1596433809252-260c2745dfdd?q=80&w=800&auto=format&fit=crop"],
+    "priceFrom": 16,
+    "tags": ["Citrus", "Energizing", "Summer"],
+    "variants": [
+      { "id": "small-citrus", "label": "Small (100g)", "price": 16 },
+      { "id": "large-citrus", "label": "Large (250g)", "price": 26 }
+    ]
+  },
+  {
+    "slug": "vanilla-chai",
+    "name": "Vanilla Chai",
+    "shortDescription": "Warm cinnamon, spicy cardamom, and creamy vanilla.",
+    "description": "A comforting embrace of classic chai spices. Vanilla Chai blends warm cinnamon sticks, crushed cardamom pods, and a base of smooth, creamy vanilla bean. Perfect for cold evenings and cozy reading sessions.",
+    "images": ["https://images.unsplash.com/photo-1602874801007-bd458bb1b8b6?q=80&w=800&auto=format&fit=crop"],
+    "priceFrom": 19,
+    "tags": ["Spicy", "Warm", "Winter"],
+    "variants": [
+      { "id": "standard-chai", "label": "Standard (200g)", "price": 19 }
+    ]
+  },
+  {
+    "slug": "ocean-breeze",
+    "name": "Ocean Breeze",
+    "shortDescription": "Sea salt, driftwood, and fresh coastal air.",
+    "description": "Bring the serenity of the shoreline indoors. Ocean Breeze captures the essence of a morning walk on the beach, with notes of salty spray, weathered driftwood, and a clean, aquatic finish.",
+    "images": ["https://images.unsplash.com/photo-1570837134375-392c30088904?q=80&w=800&auto=format&fit=crop"],
+    "priceFrom": 18,
+    "tags": ["Fresh", "Clean", "Summer"],
+    "variants": [
+      { "id": "small-ocean", "label": "Small (100g)", "price": 18 },
+      { "id": "large-ocean", "label": "Large (250g)", "price": 28 }
+    ]
+  },
+  {
+    "slug": "eucalyptus-mint",
+    "name": "Eucalyptus Mint",
+    "shortDescription": "Refreshing eucalyptus with crisp peppermint leaves.",
+    "description": "Refresh and revitalize your senses. Eucalyptus Mint combines the clarifying power of eucalyptus with the sharp, clean scent of peppermint. Great for spa-like environments and clearing the mind.",
+    "images": ["https://images.unsplash.com/photo-1536920333506-e2f527205d25?q=80&w=800&auto=format&fit=crop"],
+    "priceFrom": 18,
+    "tags": ["Fresh", "Herbal", "Refreshing"],
+    "variants": [
+      { "id": "standard-eucalyptus", "label": "Standard (200g)", "price": 18 }
+    ]
+  }
+]
