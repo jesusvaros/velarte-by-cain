@@ -11,6 +11,15 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const cartCount = items.reduce((acc, item) => acc + item.qty, 0);
 
+  const navLinks = [
+    { name: 'Tienda', href: '/shop' },
+    { name: 'Velas', href: '/velas' },
+    { name: 'Wax melts', href: '/wax-melts' },
+    { name: 'Wax sachets', href: '/wax-sachets' },
+    { name: 'Complementos', href: '/complementos' },
+    { name: 'Eventos', href: '/eventos' },
+  ];
+
   return (
     <nav className="bg-white border-b border-gray-100 sticky top-0 z-50">
       <Container>
@@ -21,12 +30,15 @@ export function Navbar() {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="/candles" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
-              Shop All
-            </Link>
-            <Link href="/about" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
-              About
-            </Link>
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                {link.name}
+              </Link>
+            ))}
             <Link href="/order" className="relative group">
               <ShoppingBag className="w-6 h-6 text-gray-600 group-hover:text-gray-900 transition-colors" />
               {cartCount > 0 && (
@@ -56,20 +68,16 @@ export function Navbar() {
         {/* Mobile Menu */}
         {isOpen && (
           <div className="md:hidden py-4 space-y-4 border-t border-gray-50">
-            <Link
-              href="/candles"
-              onClick={() => setIsOpen(false)}
-              className="block text-base font-medium text-gray-600 hover:text-gray-900"
-            >
-              Shop All
-            </Link>
-            <Link
-              href="/about"
-              onClick={() => setIsOpen(false)}
-              className="block text-base font-medium text-gray-600 hover:text-gray-900"
-            >
-              About
-            </Link>
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                className="block text-base font-medium text-gray-600 hover:text-gray-900"
+              >
+                {link.name}
+              </Link>
+            ))}
           </div>
         )}
       </Container>

@@ -1,5 +1,7 @@
 import productsData from '@/content/products.json';
 
+export type Category = 'velas-velarte' | 'velas-subdain' | 'wax-melts' | 'wax-sachets' | 'complementos' | 'eventos';
+
 export interface ProductVariant {
   id: string;
   label: string;
@@ -14,11 +16,16 @@ export interface Product {
   images: string[];
   priceFrom: number;
   tags: string[];
+  category: Category;
   variants?: ProductVariant[];
 }
 
 export async function getProducts(): Promise<Product[]> {
   return productsData as Product[];
+}
+
+export async function getProductsByCategory(category: Category): Promise<Product[]> {
+  return (productsData as Product[]).filter((p) => p.category === category);
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | undefined> {
