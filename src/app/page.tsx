@@ -57,7 +57,7 @@ export default async function Home() {
           {/* Mobile Image */}
           <div className="block md:hidden absolute inset-0">
             <Image
-              src="/images/sundain/foto-todos-los-sundae-no-ia.jpg"
+              src="/images/sundain/foto-todos-los-sundae-no-ia-2.jpg"
               alt="Velarte by Caín Collection Mobile"
               fill
               priority

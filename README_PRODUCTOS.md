@@ -28,6 +28,38 @@ Cada producto tiene las siguientes propiedades:
     *   `label`: Nombre del formato (ej: `Caja Grande (180g)`).
     *   `price`: Precio específico de esa variante.
 
+## Ejemplos de Nuevos Productos
+
+### 1. Wax Sachets (Ambientadores Sólidos)
+Para añadir un Wax Sachet, asegúrate de usar la categoría `wax-sachets`:
+```json
+{
+  "slug": "wax-sachet-lavanda",
+  "name": "Wax Sachet de Lavanda",
+  "shortDescription": "Ideal para armarios y cajones.",
+  "description": "Ambientador sólido artesanal con flores secas de lavanda.",
+  "images": ["/images/sachets/lavanda.jpg"],
+  "priceFrom": 8,
+  "category": "wax-sachets",
+  "tags": ["Sachets", "Natural", "Armarios"]
+}
+```
+
+### 2. Complementos
+Para añadir accesorios como quemadores o tijeras corta-mechas, usa la categoría `complementos`:
+```json
+{
+  "slug": "quemador-ceramica-minimal",
+  "name": "Quemador Cerámica Minimal",
+  "shortDescription": "Diseño elegante en color blanco mate.",
+  "description": "El complemento perfecto para tus wax melts.",
+  "images": ["/images/complementos/quemador.jpg"],
+  "priceFrom": 15,
+  "category": "complementos",
+  "tags": ["Accesorios", "Decoración"]
+}
+```
+
 ## Ejemplo de un nuevo aroma
 Para añadir un sabor/aroma a un producto existente, simplemente añádelo a la lista `scents`:
 ```json
