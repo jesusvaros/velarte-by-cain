@@ -1,11 +1,12 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { useCart } from '@/store/cart';
 import { Container } from '@/components/Container';
 import { formatPrice } from '@/lib/format';
 import { QuantitySelector } from '@/components/QuantitySelector';
-import { Trash2, Send, CheckCircle2 } from 'lucide-react';
+import { Trash2, Send, CheckCircle2, ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
 
 export default function OrderPage() {
@@ -19,6 +20,9 @@ export default function OrderPage() {
     name: '',
     email: '',
     phone: '',
+    address: '',
+    city: '',
+    postalCode: '',
     note: '',
     honeypot: '',
   });
@@ -72,7 +76,7 @@ export default function OrderPage() {
 
   if (isSuccess) {
     return (
-      <Container className="py-24 text-center">
+      <Container className="py-32 mt-16 text-center">
         <div className="max-w-md mx-auto">
           <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto mb-6" />
           <h1 className="text-3xl font-serif mb-4">¡Solicitud Enviada!</h1>
@@ -92,7 +96,7 @@ export default function OrderPage() {
 
   if (items.length === 0) {
     return (
-      <Container className="py-24 text-center">
+      <Container className="py-32 mt-16 text-center">
         <h1 className="text-3xl font-serif mb-6">Tu Pedido</h1>
         <p className="text-gray-600 mb-8">Tu carrito está vacío actualmente.</p>
         <Link
@@ -106,7 +110,7 @@ export default function OrderPage() {
   }
 
   return (
-    <div className="py-16">
+    <div className="py-24 mt-16">
       <Container>
         <h1 className="text-3xl font-serif mb-12">Revisar Pedido</h1>
         
@@ -116,28 +120,44 @@ export default function OrderPage() {
             <h2 className="text-xl font-bold mb-6">Productos</h2>
             <div className="space-y-6">
               {items.map((item) => (
-                <div key={`${item.slug}-${item.variantId}`} className="flex justify-between items-start pb-6 border-b border-gray-100">
-                  <div>
-                    <h3 className="font-medium text-gray-900">{item.name}</h3>
-                    {item.variantLabel && (
-                      <p className="text-sm text-gray-500">{item.variantLabel}</p>
-                    )}
-                    <p className="text-sm text-gray-900 mt-1">{formatPrice(item.unitPrice)}</p>
-                    <div className="mt-4">
-                      <QuantitySelector
-                        quantity={item.qty}
-                        onChange={(qty) => setQty(item.slug, qty, item.variantId)}
+                <div key={`${item.slug}-${item.variantId}-${item.name}`} className="flex gap-4 pb-6 border-b border-gray-100 items-center">
+                  <div className="relative w-20 h-20 flex-shrink-0 bg-gray-50 rounded-lg overflow-hidden border border-gray-100">
+                    {item.image ? (
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        fill
+                        className="object-cover"
                       />
-                    </div>
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400">
+                        <ShoppingBag size={24} />
+                      </div>
+                    )}
                   </div>
-                  <div className="text-right">
-                    <p className="font-semibold text-gray-900">{formatPrice(item.unitPrice * item.qty)}</p>
-                    <button
-                      onClick={() => removeItem(item.slug, item.variantId)}
-                      className="mt-4 text-gray-400 hover:text-red-500 transition-colors"
-                    >
-                      <Trash2 className="w-5 h-5" />
-                    </button>
+                  <div className="flex-grow flex justify-between items-start">
+                    <div>
+                      <h3 className="font-medium text-gray-900">{item.name}</h3>
+                      {item.variantLabel && (
+                        <p className="text-sm text-gray-500">{item.variantLabel}</p>
+                      )}
+                      <p className="text-sm text-gray-900 mt-1">{formatPrice(item.unitPrice)}</p>
+                      <div className="mt-4">
+                        <QuantitySelector
+                          quantity={item.qty}
+                          onChange={(qty) => setQty(item.slug, qty, item.variantId)}
+                        />
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="font-semibold text-gray-900">{formatPrice(item.unitPrice * item.qty)}</p>
+                      <button
+                        onClick={() => removeItem(item.slug, item.variantId)}
+                        className="mt-4 text-gray-400 hover:text-red-500 transition-colors"
+                      >
+                        <Trash2 className="w-5 h-5" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -208,6 +228,49 @@ export default function OrderPage() {
                   </label>
                 ))}
               </div>
+
+              <div className="pt-4 border-t border-gray-200">
+                <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wider">Dirección de Entrega</h3>
+              </div>
+
+              {shippingMethod !== 'recogida' ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Calle y número</label>
+                    <input
+                      type="text"
+                      required={shippingMethod !== 'recogida'}
+                      className="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-black focus:border-transparent outline-none"
+                      value={formData.address}
+                      onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Ciudad</label>
+                    <input
+                      type="text"
+                      required={shippingMethod !== 'recogida'}
+                      className="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-black focus:border-transparent outline-none"
+                      value={formData.city}
+                      onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Código Postal</label>
+                    <input
+                      type="text"
+                      required={shippingMethod !== 'recogida'}
+                      className="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-black focus:border-transparent outline-none"
+                      value={formData.postalCode}
+                      onChange={(e) => setFormData({ ...formData, postalCode: e.target.value })}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div className="p-4 bg-zinc-100 rounded-lg text-sm text-zinc-600 italic">
+                  Has seleccionado recogida local. No es necesario introducir dirección de envío.
+                </div>
+              )}
 
               <div className="pt-4 border-t border-gray-200">
                 <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wider">Datos de Contacto</h3>

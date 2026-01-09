@@ -29,6 +29,7 @@ export function ProductCard({ product }: ProductCardProps) {
     addItem({
       slug: product.slug,
       name: product.name,
+      image: product.images?.[0],
       variantId: product.variants?.[0]?.id,
       variantLabel: product.variants?.[0]?.label,
       unitPrice: product.variants?.[0]?.price || product.priceFrom,

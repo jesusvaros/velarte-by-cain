@@ -45,6 +45,11 @@ Name: ${customer.name}
 Email: ${customer.email}
 Phone: ${customer.phone || 'N/A'}
 
+${shipping.method !== 'Recogida gratuita en Mairena del Aljarafe (Sevilla)' ? `Shipping Address:
+Street: ${customer.address}
+City: ${customer.city}
+Postal Code: ${customer.postalCode}` : 'Shipping Method: Local Pickup'}
+
 Order Summary:
 ${itemsList}
 
@@ -59,7 +64,7 @@ ${customer.note || 'No note provided.'}
     `.trim();
 
     // Send email to shop owner
-    const ownerEmail = process.env.ORDERS_EMAIL || 'pintorcvc@gmail.com';
+    const ownerEmail = process.env.ORDERS_EMAIL || 'xjesusvr@gmail.com';
     const emailResult = await sendOrderEmail({
       to: ownerEmail,
       subject: `New Order Request: ${customer.name}`,

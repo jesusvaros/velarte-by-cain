@@ -16,8 +16,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Velarte by Cain | Handcrafted Soy Candles",
-  description: "Boutique handcrafted soy candles designed to bring warmth and tranquility to your home.",
+  title: "Velarte by Cain | Velas de soja artesanales",
+  description: "Velas de soja artesanales diseñadas para aportar calidez y tranquilidad a tu hogar.",
+  icons: {
+    icon: '/Logo_velarte_transparente-removebg-preview.png',
+    apple: '/Logo_velarte_transparente-removebg-preview.png',
+  },
 };
 
 export default function RootLayout({

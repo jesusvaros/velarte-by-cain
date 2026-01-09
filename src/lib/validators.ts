@@ -3,6 +3,7 @@ import { z } from 'zod';
 export const CartItemSchema = z.object({
   slug: z.string(),
   name: z.string(),
+  image: z.string().optional(),
   variantId: z.string().optional(),
   variantLabel: z.string().optional(),
   unitPrice: z.number().positive(),
@@ -13,6 +14,9 @@ export const OrderFormSchema = z.object({
   name: z.string().min(2, 'Name is required').max(100),
   email: z.string().email('Invalid email address'),
   phone: z.string().max(20).optional(),
+  address: z.string().min(5, 'Address is required').optional(),
+  city: z.string().min(2, 'City is required').optional(),
+  postalCode: z.string().min(5, 'Postal code is required').optional(),
   note: z.string().max(500).optional(),
   honeypot: z.string().max(0, 'Spam detected').optional(),
 });

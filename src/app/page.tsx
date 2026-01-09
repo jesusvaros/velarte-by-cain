@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Container } from '@/components/Container';
-import { MoveRight } from 'lucide-react';
+import { MoveRight, ChevronDown } from 'lucide-react';
 import { getProductsByCategory, Product } from '@/lib/products';
 import { ProductCard } from '@/components/ProductCard';
 
@@ -40,7 +40,7 @@ export default async function Home() {
   return (
     <div className="flex flex-col gap-24 pb-24">
       {/* Hero Section */}
-      <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           {/* Desktop Image */}
           <div className="hidden md:block absolute inset-0">
@@ -51,6 +51,8 @@ export default async function Home() {
               priority
               className="object-cover"
             />
+            {/* Gradient Overlay to improve readability with transparent navbar */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent pointer-events-none" />
           </div>
           {/* Mobile Image */}
           <div className="block md:hidden absolute inset-0">
@@ -61,6 +63,7 @@ export default async function Home() {
               priority
               className="object-cover"
             />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent pointer-events-none" />
           </div>
         </div>
 
@@ -76,6 +79,12 @@ export default async function Home() {
               priority
             />
           </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce flex flex-col items-center gap-2 text-white drop-shadow-md">
+          <span className="text-xs font-medium uppercase tracking-widest">Descubre</span>
+          <ChevronDown className="w-6 h-6" />
         </div>
       </section>
 

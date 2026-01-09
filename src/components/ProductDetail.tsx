@@ -82,8 +82,19 @@ export default function ProductDetail({ product, initialScentId }: ProductDetail
       addItem({
         slug: product.slug,
         name: product.name,
+        image: product.images[0],
         variantId: selectedVariant?.id,
         variantLabel: `${selectedVariant?.label ? selectedVariant.label : ''} - ${scentLabel}`,
+        unitPrice: selectedVariant?.price || product.priceFrom,
+        qty: quantity,
+      });
+    } else if (product.slug === 'pack-iniciacion-wax-melts') {
+      addItem({
+        slug: product.slug,
+        name: product.name,
+        image: product.images[0],
+        variantId: selectedVariant?.id,
+        variantLabel: selectedVariant?.label,
         unitPrice: selectedVariant?.price || product.priceFrom,
         qty: quantity,
       });
@@ -92,6 +103,7 @@ export default function ProductDetail({ product, initialScentId }: ProductDetail
         addItem({
           slug: product.slug,
           name: `${product.name} - ${selection.scent.name}`,
+          image: selection.scent.image || product.images[0],
           variantId: selectedVariant?.id,
           variantLabel: selectedVariant?.label,
           unitPrice: selectedVariant?.price || product.priceFrom,
