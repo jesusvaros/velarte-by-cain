@@ -48,6 +48,9 @@ export default function ProductDetail({ product, initialScentId }: ProductDetail
     if (product.category === 'wax-melts' && product.slug !== 'pack-iniciacion-wax-melts') {
       return (selectedVariant?.price || product.priceFrom) * quantity;
     }
+    if (product.slug === 'pack-iniciacion-wax-melts') {
+      return (selectedVariant?.price || product.priceFrom) * quantity;
+    }
     return selectedScents.reduce((acc, selection) => acc + (selectedVariant?.price || product.priceFrom) * selection.count, 0);
   })();
 
