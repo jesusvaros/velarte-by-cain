@@ -1,7 +1,7 @@
 [
   {
     "slug": "sundain-candles",
-    "name": "Velas Subdaín",
+    "name": "Velas Sundaín",
     "shortDescription": "Fragancias intensas y diseños exclusivos en cera de soja.",
     "description": "Nuestra línea exclusiva de velas con fragancias intensas y diseños únicos. Elaboradas con cera de soja 100% natural. Disponibles en Chocoavellana, Rosas, Vainilla, Citronela, Naranja y Canela y Lavanda.",
     "images": ["/images/sundain/Sundain_Lavanda.jpg"],
@@ -10,7 +10,7 @@
       "/images/sundain/foto-todos-los-sundae-no-ia-2.jpg"
     ],
     "priceFrom": 12,
-    "category": "velas-subdain",
+    "category": "velas-sundain",
     "tags": ["Velas", "Soja", "Premium"],
     "scents": [
       { "id": "chocoavellana", "name": "Chocoavellana", "image": "/images/sundain/Sundain_Chocoavellana.png" },

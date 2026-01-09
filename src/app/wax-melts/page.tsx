@@ -17,7 +17,7 @@ export default async function WaxMeltsPage() {
   })) || [];
 
   return (
-    <div className="py-16">
+    <div className="py-16 mt-16">
       <Container>
         <header className="mb-12 text-center">
           <h1 className="text-4xl font-serif text-gray-900 mb-4">Wax Melts</h1>

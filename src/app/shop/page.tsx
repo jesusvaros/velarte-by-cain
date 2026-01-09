@@ -11,7 +11,7 @@ export default async function ShopPage() {
   const products = await getProducts();
 
   return (
-    <div className="py-16">
+    <div className="py-16 mt-16">
       <Container>
         <header className="mb-12 text-center">
           <h1 className="text-5xl font-serif text-gray-900 mb-4">Todos los productos</h1>

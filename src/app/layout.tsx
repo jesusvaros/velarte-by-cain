@@ -60,11 +60,9 @@ export default function RootLayout({
       >
         <CartProvider>
           <Navbar />
-          <div className="pt-24 md:pt-28">
-            <main className="flex-grow">
-              {children}
-            </main>
-          </div>
+          <main className="flex-grow">
+            {children}
+          </main>
           <Footer />
         </CartProvider>
       </body>

@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export default function EventsPage() {
   return (
-    <div className="py-16">
+    <div className="py-16 mt-16">
       <Container>
         <div className="max-w-4xl mx-auto">
           <header className="mb-16 text-center">

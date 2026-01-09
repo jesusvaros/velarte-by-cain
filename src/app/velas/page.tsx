@@ -3,20 +3,20 @@ import { ProductCard } from '@/components/ProductCard';
 import { Container } from '@/components/Container';
 
 export default async function VelasPage() {
-  const subdainProducts = await getProductsByCategory('velas-subdain');
+  const subdainProducts = await getProductsByCategory('velas-sundain');
   const mainSubdain = subdainProducts.find(p => p.slug === 'sundain-candles');
 
-  // Si tenemos el producto principal de Subdaín, creamos "productos virtuales" para cada aroma
+  // Si tenemos el producto principal de Sundaín, creamos "productos virtuales" para cada aroma
   const subdainScents = mainSubdain?.scents?.map(scent => ({
     ...mainSubdain,
     slug: `sundain-candles?scent=${scent.id}`,
-    name: `Vela Subdaín - ${scent.name}`,
+    name: `Vela Sundaín - ${scent.name}`,
     images: [scent.image],
     scents: undefined // Evitamos que la tarjeta intente renderizar el selector de nuevo
   })) || [];
 
   return (
-    <div className="py-16 space-y-24">
+    <div className="py-16 space-y-24 mt-16">
       <Container>
         <header className="mb-12 text-center">
           <h1 className="text-5xl font-serif text-gray-900 mb-4">Nuestras Velas</h1>
@@ -26,10 +26,10 @@ export default async function VelasPage() {
         </header>
 
         <div className="space-y-24">
-          {/* Sección Subdaín */}
-          <section id="subdain" className="scroll-mt-24">
+          {/* Sección Sundaín */}
+          <section id="sundain" className="scroll-mt-24">
             <div className="border-b border-zinc-100 pb-6 mb-8 text-center">
-              <h2 className="text-3xl font-serif text-gray-900">Colección Subdaín</h2>
+              <h2 className="text-3xl font-serif text-gray-900">Colección Sundaín</h2>
               <p className="text-zinc-500 mt-2">Fragancias intensas y diseños únicos que transforman cualquier espacio.</p>
             </div>
             {subdainScents.length > 0 ? (

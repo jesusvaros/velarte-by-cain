@@ -1,6 +1,6 @@
 import productsData from '@/content/products.json';
 
-export type Category = 'velas-velarte' | 'velas-subdain' | 'wax-melts' | 'wax-sachets' | 'complementos' | 'eventos';
+export type Category = 'velas-velarte' | 'velas-sundain' | 'wax-melts' | 'wax-sachets' | 'complementos' | 'eventos';
 
 export interface ProductVariant {
   id: string;

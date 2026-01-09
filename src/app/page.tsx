@@ -6,14 +6,14 @@ import { getProductsByCategory, Product } from '@/lib/products';
 import { ProductCard } from '@/components/ProductCard';
 
 export default async function Home() {
-  const subdainProducts = await getProductsByCategory('velas-subdain');
+  const subdainProducts = await getProductsByCategory('velas-sundain');
   const mainSubdain = subdainProducts.find(p => p.slug === 'sundain-candles');
 
-  // Crear "productos virtuales" para cada aroma de Subdaín para el feed (limitado a 3)
+  // Crear "productos virtuales" para cada aroma de Sundaín para el feed (limitado a 3)
   const subdainScents = (mainSubdain?.scents?.map(scent => ({
     ...mainSubdain,
     slug: `sundain-candles?scent=${scent.id}`,
-    name: `Vela Subdaín - ${scent.name}`,
+    name: `Vela Sundaín - ${scent.name}`,
     images: [scent.image],
     scents: undefined
   })) || []).slice(0, 3);
@@ -38,7 +38,7 @@ export default async function Home() {
   ].slice(0, 3);
 
   return (
-    <div className="flex flex-col gap-24 pb-24 -mt-20">
+    <div className="flex flex-col gap-24 pb-24">
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
