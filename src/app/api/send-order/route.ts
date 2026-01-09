@@ -55,7 +55,7 @@ ${customer.note || 'No note provided.'}
     `.trim();
 
     // Send email to shop owner
-    const ownerEmail = process.env.ORDERS_EMAIL || 'owner@example.com';
+    const ownerEmail = process.env.ORDERS_EMAIL || 'pintorcvc@gmail.com';
     const emailResult = await sendOrderEmail({
       to: ownerEmail,
       subject: `New Order Request: ${customer.name}`,

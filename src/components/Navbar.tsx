@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useCart } from '@/store/cart';
 import { ShoppingBag, Menu, X } from 'lucide-react';
 import { useState } from 'react';
@@ -24,8 +25,16 @@ export function Navbar() {
     <nav className="bg-white border-b border-gray-100 sticky top-0 z-50">
       <Container>
         <div className="flex justify-between items-center h-16">
-          <Link href="/" className="text-xl font-bold tracking-tight text-gray-900">
-            CANDLE VELARTE
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/logo-final.png"
+              alt="Velarte by Caín"
+              width={160}
+              height={48}
+              className="h-12 w-auto"
+              style={{ objectFit: 'contain' }}
+              priority
+            />
           </Link>
 
           {/* Desktop Nav */}

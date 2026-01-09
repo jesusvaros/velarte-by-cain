@@ -1,10 +1,20 @@
-import { getProductsByCategory } from '@/lib/products';
+import { getProductsByCategory, Product } from '@/lib/products';
 import { ProductCard } from '@/components/ProductCard';
 import { Container } from '@/components/Container';
 
-export default async function CategoryPage() {
-  const category = 'wax-melts';
-  const products = await getProductsByCategory(category);
+export default async function WaxMeltsPage() {
+  const products = await getProductsByCategory('wax-melts');
+  const mainWaxMelts = products.find(p => p.slug === 'wax-melts-coleccion');
+  const packIniciacion = products.find(p => p.slug === 'pack-iniciacion-wax-melts');
+
+  // Crear "productos virtuales" para cada aroma de los Wax Melts
+  const waxMeltsScents = mainWaxMelts?.scents?.map(scent => ({
+    ...mainWaxMelts,
+    slug: `wax-melts-coleccion?scent=${scent.id}`,
+    name: `Wax Melts - ${scent.name}`,
+    images: [scent.image],
+    scents: undefined
+  })) || [];
 
   return (
     <div className="py-16">
@@ -16,17 +26,24 @@ export default async function CategoryPage() {
           </p>
         </header>
 
-        {products.length > 0 ? (
+        <div className="space-y-16">
+          {/* Aromas Individuales */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
-            {products.map((product) => (
-              <ProductCard key={product.slug} product={product} />
+            {waxMeltsScents.map((scentProduct) => (
+              <ProductCard key={scentProduct.slug} product={scentProduct as Product} />
             ))}
           </div>
-        ) : (
-          <div className="text-center py-20 bg-zinc-50 rounded-xl">
-            <p className="text-zinc-500">Próximamente nuevos productos en esta categoría.</p>
-          </div>
-        )}
+
+          {/* Pack de Iniciación como complemento destacado */}
+          {packIniciacion && (
+            <div className="pt-16 border-t border-zinc-100">
+              <h2 className="text-2xl font-serif mb-8">Complementos Esenciales</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+                <ProductCard product={packIniciacion} />
+              </div>
+            </div>
+          )}
+        </div>
       </Container>
     </div>
   );

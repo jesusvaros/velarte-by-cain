@@ -2,93 +2,102 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Container } from '@/components/Container';
 import { MoveRight } from 'lucide-react';
-import { getProductsByCategory } from '@/lib/products';
+import { getProductsByCategory, Product } from '@/lib/products';
 import { ProductCard } from '@/components/ProductCard';
 
 export default async function Home() {
-  const subdainProducts = (await getProductsByCategory('velas-subdain')).slice(0, 3);
-  const velarteProducts = (await getProductsByCategory('velas-velarte')).slice(0, 3);
-  const waxMeltsProducts = (await getProductsByCategory('wax-melts')).slice(0, 3);
-  const waxSachetsProducts = (await getProductsByCategory('wax-sachets')).slice(0, 3);
-  const complementosProducts = (await getProductsByCategory('complementos')).slice(0, 3);
+  const subdainProducts = await getProductsByCategory('velas-subdain');
+  const mainSubdain = subdainProducts.find(p => p.slug === 'sundain-candles');
+
+  // Crear "productos virtuales" para cada aroma de Subdaín para el feed (limitado a 3)
+  const subdainScents = (mainSubdain?.scents?.map(scent => ({
+    ...mainSubdain,
+    slug: `sundain-candles?scent=${scent.id}`,
+    name: `Vela Subdaín - ${scent.name}`,
+    images: [scent.image],
+    scents: undefined
+  })) || []).slice(0, 3);
+
+  const mainWaxMelts = (await getProductsByCategory('wax-melts')).find(p => p.slug === 'wax-melts-coleccion');
+  
+  // Crear "productos virtuales" para cada aroma de Wax Melts para el feed
+  const waxMeltsScents = (mainWaxMelts?.scents?.map(scent => ({
+    ...mainWaxMelts,
+    slug: `wax-melts-coleccion?scent=${scent.id}`,
+    name: `Wax Melts - ${scent.name}`,
+    images: [scent.image],
+    scents: undefined
+  })) || []);
+
+  const packIniciacion = (await getProductsByCategory('wax-melts')).find(p => p.slug === 'pack-iniciacion-wax-melts');
+
+  // Combinar aromas y pack de iniciación, luego limitar a 3 en total
+  const combinedWaxMeltsFeed = [
+    ...waxMeltsScents,
+    ...(packIniciacion ? [packIniciacion] : [])
+  ].slice(0, 3);
 
   return (
     <div className="flex flex-col gap-24 pb-24">
       {/* Hero Section */}
       <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <Image
-            src="https://images.unsplash.com/photo-1602874801007-bd458bb1b8b6?q=80&w=2000&auto=format&fit=crop"
-            alt="Handcrafted Candles"
-            fill
-            priority
-            className="object-cover brightness-75"
-          />
-        </div>
-        
-        <Container className="relative z-10 text-center text-white">
-          <h1 className="text-5xl md:text-7xl font-serif mb-6 drop-shadow-md">
-            Velarte by Cain
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto drop-shadow-sm">
-            Velas de soja artesanales diseñadas para aportar calidez y tranquilidad a tu hogar.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link
-              href="/shop"
-              className="bg-white text-black px-8 py-3 rounded-full font-medium hover:bg-zinc-200 transition-colors inline-flex items-center gap-2"
-            >
-              Explorar Colección <MoveRight size={20} />
-            </Link>
+          {/* Desktop Image */}
+          <div className="hidden md:block absolute inset-0">
+            <Image
+              src="/images/sundain/velas-encabezado.png"
+              alt="Velarte by Caín Collection Desktop"
+              fill
+              priority
+              className="object-cover"
+            />
           </div>
-        </Container>
+          {/* Mobile Image */}
+          <div className="block md:hidden absolute inset-0">
+            <Image
+              src="/images/sundain/foto-todos-los-sundae-no-ia.jpg"
+              alt="Velarte by Caín Collection Mobile"
+              fill
+              priority
+              className="object-cover"
+            />
+          </div>
+        </div>
+
+        {/* Mobile Logo Overlay with Circle Background */}
+        <div className="relative z-10 block md:hidden">
+          <div className="bg-zinc-100/80 backdrop-blur-sm rounded-full p-0  w-[240px] h-[232px] flex items-center justify-center shadow-xl border border-white/20 shadow-xl">
+            <Image
+              src="/Logo_velarte_transparente-removebg-preview.png"
+              alt="Velarte by Caín Logo"
+              width={200}
+              height={200}
+              className="w-full h-auto"
+              priority
+            />
+          </div>
+        </div>
       </section>
 
-      {/* Sección 1: Velas, Wax Melts y Wax Sachets */}
+      {/* Sección Principal de Productos */}
       <section>
         <Container>
           <div className="space-y-24">
-            {/* Sección Unificada de Velas */}
-            <div className="space-y-16">
-              <div className="text-center space-y-4">
-                <h2 className="text-4xl font-serif">Nuestras Velas</h2>
-                <p className="text-zinc-500 max-w-xl mx-auto">Dos colecciones únicas, vertidas a mano con cera de soja natural.</p>
+          {/* Velas */}
+          <div className="space-y-8">
+            <div className="flex justify-between items-end border-b border-zinc-100 pb-6">
+              <div>
+                <h2 className="text-3xl font-serif">Velas</h2>
+                <p className="text-zinc-500 mt-2">Fragancias intensas y diseños exclusivos.</p>
               </div>
-
-              <div className="grid gap-16">
-                {/* Velas Subdaín */}
-                <div className="space-y-8">
-                  <div className="flex justify-between items-end border-b border-zinc-100 pb-6">
-                    <div>
-                      <h3 className="text-2xl font-serif">Colección Subdaín</h3>
-                      <p className="text-zinc-500 mt-1">Fragancias intensas y diseños exclusivos.</p>
-                    </div>
-                    <Link href="/velas#subdain" className="text-zinc-900 font-medium hover:underline flex items-center gap-1">
-                      Ver colección <MoveRight size={16} />
-                    </Link>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {subdainProducts.map(p => <ProductCard key={p.slug} product={p} />)}
-                  </div>
-                </div>
-
-                {/* Velas Velarte */}
-                <div className="space-y-8">
-                  <div className="flex justify-between items-end border-b border-zinc-100 pb-6">
-                    <div>
-                      <h3 className="text-2xl font-serif">Colección Velarte</h3>
-                      <p className="text-zinc-500 mt-1">Nuestra esencia clásica en cada vertido.</p>
-                    </div>
-                    <Link href="/velas#velarte" className="text-zinc-900 font-medium hover:underline flex items-center gap-1">
-                      Ver colección <MoveRight size={16} />
-                    </Link>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {velarteProducts.map(p => <ProductCard key={p.slug} product={p} />)}
-                  </div>
-                </div>
-              </div>
+              <Link href="/velas" className="text-zinc-900 font-medium hover:underline flex items-center gap-1">
+                Ver todo <MoveRight size={16} />
+              </Link>
             </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {subdainScents.map(p => <ProductCard key={p.slug} product={p as Product} />)}
+            </div>
+          </div>
 
             {/* Wax Melts */}
             <div className="space-y-8">
@@ -102,23 +111,7 @@ export default async function Home() {
                 </Link>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {waxMeltsProducts.map(p => <ProductCard key={p.slug} product={p} />)}
-              </div>
-            </div>
-
-            {/* Wax Sachets */}
-            <div className="space-y-8">
-              <div className="flex justify-between items-end border-b border-zinc-100 pb-6">
-                <div>
-                  <h2 className="text-3xl font-serif">Wax Sachets</h2>
-                  <p className="text-zinc-500 mt-2">Ambientadores naturales para tus espacios favoritos.</p>
-                </div>
-                <Link href="/wax-sachets" className="text-zinc-900 font-medium hover:underline flex items-center gap-1">
-                  Ver todo <MoveRight size={16} />
-                </Link>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {waxSachetsProducts.map(p => <ProductCard key={p.slug} product={p} />)}
+                {combinedWaxMeltsFeed.map(p => <ProductCard key={p.slug} product={p as Product} />)}
               </div>
             </div>
           </div>
@@ -131,20 +124,20 @@ export default async function Home() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-xl">
               <Image
-                src="https://images.unsplash.com/photo-1596433809252-260c2745dfdd?q=80&w=1200&auto=format&fit=crop"
-                alt="Proceso Artesanal"
+                src="/images/sundain/foto-todos-los-sundae-no-ia.jpg"
+                alt="Velarte by Caín"
                 fill
                 className="object-cover"
               />
             </div>
             <div className="space-y-6">
-              <h2 className="text-4xl font-serif text-zinc-900">Nuestra Historia</h2>
+              <h2 className="text-4xl font-serif text-zinc-900">Sobre nosotros</h2>
               <div className="w-16 h-1 bg-zinc-900"></div>
               <p className="text-lg text-zinc-600 leading-relaxed">
-                Velarte by Cain nace de la pasión por crear ambientes únicos a través de fragancias cuidadosamente seleccionadas y cera de soja 100% natural. 
+                Somos un matrimonio sevillano que crea velas y wax melts artesanales, hechos a mano con calma y mucho cariño.
               </p>
               <p className="text-lg text-zinc-600 leading-relaxed">
-                Cada una de nuestras piezas es vertida a mano artesanalmente, cuidando cada detalle para ofrecerte no solo una vela, sino una experiencia sensorial completa que transforma tu espacio.
+                Trabajamos con cera de soja y esencias aptas para velas, creando productos veganos y cruelty-free pensados para llenar tu hogar de aroma, calma y pequeños momentos de bienestar. En Velarte by Caín creemos en lo artesanal, en los detalles y en disfrutar del momento.
               </p>
               <Link 
                 href="/eventos" 
@@ -164,14 +157,11 @@ export default async function Home() {
             <div className="flex justify-between items-end border-b border-zinc-100 pb-6">
               <div>
                 <h2 className="text-3xl font-serif">Complementos</h2>
-                <p className="text-zinc-500 mt-2">Todo lo necesario para el cuidado de tus velas.</p>
+                <p className="text-zinc-500 mt-2">Estamos trabajando en ello para sorprenderos pronto.</p>
               </div>
               <Link href="/complementos" className="text-zinc-900 font-medium hover:underline flex items-center gap-1">
-                Ver todo <MoveRight size={16} />
+                Ver más <MoveRight size={16} />
               </Link>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {complementosProducts.map(p => <ProductCard key={p.slug} product={p} />)}
             </div>
           </div>
         </Container>

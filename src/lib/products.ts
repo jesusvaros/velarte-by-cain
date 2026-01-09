@@ -8,16 +8,24 @@ export interface ProductVariant {
   price: number;
 }
 
+export interface Scent {
+  id: string;
+  name: string;
+  image: string;
+}
+
 export interface Product {
   slug: string;
   name: string;
   shortDescription: string;
   description: string;
   images: string[];
+  gallery?: string[];
   priceFrom: number;
   tags: string[];
   category: Category;
   variants?: ProductVariant[];
+  scents?: Scent[];
 }
 
 export async function getProducts(): Promise<Product[]> {

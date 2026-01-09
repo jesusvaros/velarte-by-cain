@@ -27,7 +27,7 @@ export default function EventsPage() {
               <div className="space-y-4">
                 <h2 className="text-3xl font-serif text-gray-900">Personalización Total</h2>
                 <p className="text-gray-600 text-lg leading-relaxed">
-                  Desde el aroma hasta el etiquetado y el packaging. Trabajamos contigo para que el detalle de tu evento sea inolvidable.
+                  Desde el aroma hasta el etiquetado y el packaging. Trabajamos contigo para que el detalle de tu evento sea inolvidable. Aunque todavía no tenemos el catálogo online de eventos, estamos listos para escucharte.
                 </p>
               </div>
               <ul className="space-y-4">
@@ -43,7 +43,7 @@ export default function EventsPage() {
                   href="mailto:hola@velarte.com" 
                   className="inline-block bg-zinc-900 text-white px-10 py-4 rounded-full font-medium hover:bg-zinc-800 transition-colors shadow-lg"
                 >
-                  Solicitar Presupuesto
+                  Solicitar Presupuesto Personalizado
                 </a>
               </div>
             </div>
