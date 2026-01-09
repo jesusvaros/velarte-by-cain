@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: true }); // Silent fail for bots
     }
 
-    const { customer, items, total } = validatedData;
+    const { customer, items, shipping, total } = validatedData;
 
     // Prepare email content
     const itemsList = items
@@ -48,7 +48,11 @@ Phone: ${customer.phone || 'N/A'}
 Order Summary:
 ${itemsList}
 
-Total Estimate: ${formatPrice(total)}
+Shipping Method:
+${shipping.method} (${formatPrice(shipping.price)})
+
+Total Estimate (including shipping):
+${formatPrice(total)}
 
 Customer Note:
 ${customer.note || 'No note provided.'}

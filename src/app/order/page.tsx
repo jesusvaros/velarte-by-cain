@@ -14,6 +14,7 @@ export default function OrderPage() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const [shippingMethod, setShippingMethod] = useState<string>('correos_econ');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -21,6 +22,17 @@ export default function OrderPage() {
     note: '',
     honeypot: '',
   });
+
+  const shippingOptions = [
+    { id: 'correos_econ', label: 'Económico Correos', price: 3.90, description: 'Sin seguimiento, no podemos asumir el costo en el improbable caso de pérdida.' },
+    { id: 'inpost', label: 'InPost', price: 4.90, description: 'Con seguimiento, recogida en un punto cercano.' },
+    { id: 'correos_dom', label: 'Domicilio Correos', price: 7.50, description: 'Con seguimiento, entrega directamente en su hogar.' },
+    { id: 'recogida', label: 'Recogida gratuita en Mairena del Aljarafe (Sevilla)', price: 0.00, description: '' },
+  ];
+
+  const selectedShipping = shippingOptions.find(opt => opt.id === shippingMethod);
+  const shippingPrice = selectedShipping?.price || 0;
+  const finalTotal = total + shippingPrice;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,7 +46,11 @@ export default function OrderPage() {
         body: JSON.stringify({
           customer: formData,
           items: items,
-          total: total,
+          shipping: {
+            method: selectedShipping?.label,
+            price: shippingPrice
+          },
+          total: finalTotal,
         }),
       });
 
@@ -126,19 +142,76 @@ export default function OrderPage() {
                 </div>
               ))}
             </div>
-            <div className="mt-8 flex justify-between items-center text-xl font-bold">
-              <span>Total Estimado</span>
-              <span>{formatPrice(total)}</span>
+            <div className="mt-8 space-y-4 pt-6 border-t border-gray-100">
+              <div className="flex justify-between items-center text-gray-600">
+                <span>Subtotal</span>
+                <span>{formatPrice(total)}</span>
+              </div>
+              <div className="flex justify-between items-center text-gray-600">
+                <span>Envío ({selectedShipping?.label})</span>
+                <span>{formatPrice(shippingPrice)}</span>
+              </div>
+              <div className="flex justify-between items-center text-xl font-bold pt-4">
+                <span>Total Estimado</span>
+                <span>{formatPrice(finalTotal)}</span>
+              </div>
+            </div>
+            
+            <div className="mt-8 p-4 bg-zinc-50 rounded-xl border border-zinc-100">
+              <p className="text-sm text-zinc-600 font-medium mb-1">Entrega: 7-10 días hábiles.</p>
+              <p className="text-xs text-zinc-500 italic leading-relaxed">
+                Actualmente solo hacemos envíos a España - península. Estamos en crecimiento y esperamos poder expandirnos pronto 💫.
+              </p>
             </div>
             <p className="mt-4 text-sm text-gray-500 italic">
-              * Esto es una solicitud de pedido, no una compra final. Nos pondremos en contacto contigo para confirmar el envío y el pago.
+              * Esto es una solicitud de pedido, no una compra final. Nos pondremos en contacto contigo para confirmar el pago.
             </p>
           </div>
 
           {/* Customer Form */}
           <div className="bg-gray-50 p-8 rounded-2xl">
-            <h2 className="text-xl font-bold mb-6">Tus Datos</h2>
+            <h2 className="text-xl font-bold mb-6">Envío y Datos</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Shipping Selector */}
+              <div className="space-y-3">
+                <label className="block text-sm font-medium text-gray-700 mb-2">Método de Envío</label>
+                {shippingOptions.map((opt) => (
+                  <label 
+                    key={opt.id} 
+                    className={`block p-4 rounded-xl border-2 transition-all cursor-pointer ${
+                      shippingMethod === opt.id 
+                        ? 'border-black bg-white shadow-sm' 
+                        : 'border-transparent bg-white/50 hover:bg-white'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <input
+                          type="radio"
+                          name="shipping"
+                          value={opt.id}
+                          checked={shippingMethod === opt.id}
+                          onChange={(e) => setShippingMethod(e.target.value)}
+                          className="w-4 h-4 text-black focus:ring-black border-gray-300"
+                        />
+                        <div>
+                          <p className="font-medium text-gray-900">{opt.label}</p>
+                          {opt.description && (
+                            <p className="text-xs text-gray-500 mt-0.5">{opt.description}</p>
+                          )}
+                        </div>
+                      </div>
+                      <span className="font-semibold text-gray-900">
+                        {opt.price === 0 ? 'Gratis' : formatPrice(opt.price)}
+                      </span>
+                    </div>
+                  </label>
+                ))}
+              </div>
+
+              <div className="pt-4 border-t border-gray-200">
+                <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wider">Datos de Contacto</h3>
+              </div>
               {/* Honeypot */}
               <input
                 type="text"
