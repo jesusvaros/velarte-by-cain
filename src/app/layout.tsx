@@ -43,8 +43,8 @@ export const metadata: Metadata = {
     images: ["/images/sundain/velas-encabezado.png"],
   },
   icons: {
-    icon: '/Logo_velarte_transparente-removebg-preview.png',
-    apple: '/Logo_velarte_transparente-removebg-preview.png',
+    icon: '/logo-redondo.png',
+    apple: '/logo-redondo.png',
   },
 };
 

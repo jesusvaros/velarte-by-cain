@@ -48,7 +48,7 @@ export function Navbar() {
               isScrolled || !isHome ? 'bg-transparent' : 'bg-zinc-100/90 shadow-sm backdrop-blur-sm'
             }`}>
               <Image
-                src="/logo-final.png"
+                src="/logo-redondo.png"
                 alt="Velarte by Caín"
                 width={160}
                 height={48}

@@ -71,7 +71,7 @@ export default async function Home() {
         <div className="relative z-10 block md:hidden">
           <div className="bg-zinc-100/80 backdrop-blur-sm rounded-full p-0  w-[240px] h-[232px] flex items-center justify-center shadow-xl border border-white/20 shadow-xl">
             <Image
-              src="/Logo_velarte_transparente-removebg-preview.png"
+              src="/logo-redondo.png"
               alt="Velarte by Caín Logo"
               width={200}
               height={200}
