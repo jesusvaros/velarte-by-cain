@@ -38,7 +38,7 @@ export default async function Home() {
   ].slice(0, 3);
 
   return (
-    <div className="flex flex-col gap-24 pb-24">
+    <div className="flex flex-col gap-24 pb-24 -mt-20">
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -94,12 +94,10 @@ export default async function Home() {
           <div className="space-y-24">
           {/* Velas */}
           <div className="space-y-8">
-            <div className="flex justify-between items-end border-b border-zinc-100 pb-6">
-              <div>
-                <h2 className="text-3xl font-serif">Velas</h2>
-                <p className="text-zinc-500 mt-2">Fragancias intensas y diseños exclusivos.</p>
-              </div>
-              <Link href="/velas" className="text-zinc-900 font-medium hover:underline flex items-center gap-1">
+            <div className="flex flex-col items-center text-center border-b border-zinc-100 pb-6">
+              <h2 className="text-3xl font-serif">Velas</h2>
+              <p className="text-zinc-500 mt-2">Fragancias intensas y diseños exclusivos.</p>
+              <Link href="/velas" className="mt-4 text-zinc-900 font-medium hover:underline flex items-center gap-1">
                 Ver todo <MoveRight size={16} />
               </Link>
             </div>
@@ -110,12 +108,10 @@ export default async function Home() {
 
             {/* Wax Melts */}
             <div className="space-y-8">
-              <div className="flex justify-between items-end border-b border-zinc-100 pb-6">
-                <div>
-                  <h2 className="text-3xl font-serif">Wax Melts</h2>
-                  <p className="text-zinc-500 mt-2">Pequeñas delicias aromáticas sin mecha.</p>
-                </div>
-                <Link href="/wax-melts" className="text-zinc-900 font-medium hover:underline flex items-center gap-1">
+              <div className="flex flex-col items-center text-center border-b border-zinc-100 pb-6">
+                <h2 className="text-3xl font-serif">Wax Melts</h2>
+                <p className="text-zinc-500 mt-2">Pequeñas delicias aromáticas sin mecha.</p>
+                <Link href="/wax-melts" className="mt-4 text-zinc-900 font-medium hover:underline flex items-center gap-1">
                   Ver todo <MoveRight size={16} />
                 </Link>
               </div>
@@ -163,12 +159,10 @@ export default async function Home() {
       <section>
         <Container>
           <div className="space-y-8">
-            <div className="flex justify-between items-end border-b border-zinc-100 pb-6">
-              <div>
-                <h2 className="text-3xl font-serif">Complementos</h2>
-                <p className="text-zinc-500 mt-2">Estamos trabajando en ello para sorprenderos pronto.</p>
-              </div>
-              <Link href="/complementos" className="text-zinc-900 font-medium hover:underline flex items-center gap-1">
+            <div className="flex flex-col items-center text-center border-b border-zinc-100 pb-6">
+              <h2 className="text-3xl font-serif">Complementos</h2>
+              <p className="text-zinc-500 mt-2">Estamos trabajando en ello para sorprenderos pronto.</p>
+              <Link href="/complementos" className="mt-4 text-zinc-900 font-medium hover:underline flex items-center gap-1">
                 Ver más <MoveRight size={16} />
               </Link>
             </div>

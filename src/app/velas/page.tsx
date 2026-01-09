@@ -28,7 +28,7 @@ export default async function VelasPage() {
         <div className="space-y-24">
           {/* Sección Subdaín */}
           <section id="subdain" className="scroll-mt-24">
-            <div className="border-b border-zinc-100 pb-6 mb-8">
+            <div className="border-b border-zinc-100 pb-6 mb-8 text-center">
               <h2 className="text-3xl font-serif text-gray-900">Colección Subdaín</h2>
               <p className="text-zinc-500 mt-2">Fragancias intensas y diseños únicos que transforman cualquier espacio.</p>
             </div>
@@ -45,7 +45,7 @@ export default async function VelasPage() {
 
           {/* Sección Velarte */}
           <section id="velarte" className="scroll-mt-24">
-            <div className="border-b border-zinc-100 pb-6 mb-8">
+            <div className="border-b border-zinc-100 pb-6 mb-8 text-center">
               <h2 className="text-3xl font-serif text-gray-900">Colección Velarte</h2>
               <p className="text-zinc-500 mt-2">Nuestra esencia clásica, elegante y atemporal.</p>
             </div>

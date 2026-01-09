@@ -76,7 +76,7 @@ export default function OrderPage() {
 
   if (isSuccess) {
     return (
-      <Container className="py-32 mt-16 text-center">
+      <Container className="py-32 text-center">
         <div className="max-w-md mx-auto">
           <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto mb-6" />
           <h1 className="text-3xl font-serif mb-4">¡Solicitud Enviada!</h1>
@@ -96,7 +96,7 @@ export default function OrderPage() {
 
   if (items.length === 0) {
     return (
-      <Container className="py-32 mt-16 text-center">
+      <Container className="py-32 text-center">
         <h1 className="text-3xl font-serif mb-6">Tu Pedido</h1>
         <p className="text-gray-600 mb-8">Tu carrito está vacío actualmente.</p>
         <Link
@@ -110,7 +110,7 @@ export default function OrderPage() {
   }
 
   return (
-    <div className="py-24 mt-16">
+    <div className="py-24">
       <Container>
         <h1 className="text-3xl font-serif mb-12">Revisar Pedido</h1>
         

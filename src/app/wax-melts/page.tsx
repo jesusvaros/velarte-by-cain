@@ -19,9 +19,9 @@ export default async function WaxMeltsPage() {
   return (
     <div className="py-16">
       <Container>
-        <header className="mb-12">
+        <header className="mb-12 text-center">
           <h1 className="text-4xl font-serif text-gray-900 mb-4">Wax Melts</h1>
-          <p className="text-gray-600 max-w-2xl text-lg">
+          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
             Pequeñas delicias aromáticas sin mecha para fundir y disfrutar.
           </p>
         </header>
@@ -36,9 +36,9 @@ export default async function WaxMeltsPage() {
 
           {/* Pack de Iniciación como complemento destacado */}
           {packIniciacion && (
-            <div className="pt-16 border-t border-zinc-100">
-              <h2 className="text-2xl font-serif mb-8">Complementos Esenciales</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+            <div className="pt-16 border-t border-zinc-100 text-center">
+              <h2 className="text-2xl font-serif mb-8 mx-auto">Complementos Esenciales</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 text-left">
                 <ProductCard product={packIniciacion} />
               </div>
             </div>
