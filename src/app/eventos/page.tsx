@@ -40,7 +40,7 @@ export default function EventsPage() {
               </ul>
               <div className="pt-6">
                 <a 
-                  href="mailto:hola@velarte.com" 
+                  href="mailto:velartebycain@gmail.com" 
                   className="inline-block bg-zinc-900 text-white px-10 py-4 rounded-full font-medium hover:bg-zinc-800 transition-colors shadow-lg"
                 >
                   Solicitar Presupuesto Personalizado

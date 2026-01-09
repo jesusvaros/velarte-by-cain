@@ -43,7 +43,7 @@ export function Footer() {
             <h4 className="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4">Contacto</h4>
             <p className="text-sm text-gray-600 mb-4">
               ¿Tienes alguna duda?<br />
-              Escríbenos a pintorcvc@gmail.com
+              Escríbenos a velartebycain@gmail.com
             </p>
             <div className="flex gap-4">
               <a 
