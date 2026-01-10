@@ -126,7 +126,7 @@ export default function ProductDetail({ product, initialScentId }: ProductDetail
     : product.images[0]);
 
   return (
-    <div className="py-16">
+    <div className="py-16 pt-34">
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24">
           <div className="space-y-4">
