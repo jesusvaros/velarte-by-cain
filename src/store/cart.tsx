@@ -6,8 +6,8 @@ import { CartItem } from '@/lib/validators';
 interface CartContextType {
   items: CartItem[];
   addItem: (item: CartItem) => void;
-  removeItem: (slug: string, variantId?: string) => void;
-  setQty: (slug: string, qty: number, variantId?: string) => void;
+  removeItem: (slug: string, variantId?: string, scentId?: string) => void;
+  setQty: (slug: string, qty: number, variantId?: string, scentId?: string) => void;
   clearCart: () => void;
   total: number;
 }
@@ -39,11 +39,16 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const addItem = (newItem: CartItem) => {
     setItems((prev) => {
       const existingItem = prev.find(
-        (item) => item.slug === newItem.slug && item.variantId === newItem.variantId
+        (item) => 
+          item.slug === newItem.slug && 
+          item.variantId === newItem.variantId &&
+          item.scentId === newItem.scentId
       );
       if (existingItem) {
         return prev.map((item) =>
-          item.slug === newItem.slug && item.variantId === newItem.variantId
+          item.slug === newItem.slug && 
+          item.variantId === newItem.variantId &&
+          item.scentId === newItem.scentId
             ? { ...item, qty: item.qty + newItem.qty }
             : item
         );
@@ -52,14 +57,22 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const removeItem = (slug: string, variantId?: string) => {
-    setItems((prev) => prev.filter((item) => !(item.slug === slug && item.variantId === variantId)));
+  const removeItem = (slug: string, variantId?: string, scentId?: string) => {
+    setItems((prev) => prev.filter((item) => !(
+      item.slug === slug && 
+      item.variantId === variantId &&
+      item.scentId === scentId
+    )));
   };
 
-  const setQty = (slug: string, qty: number, variantId?: string) => {
+  const setQty = (slug: string, qty: number, variantId?: string, scentId?: string) => {
     setItems((prev) =>
       prev.map((item) =>
-        item.slug === slug && item.variantId === variantId ? { ...item, qty: Math.max(1, qty) } : item
+        item.slug === slug && 
+        item.variantId === variantId &&
+        item.scentId === scentId 
+          ? { ...item, qty: Math.max(1, qty) } 
+          : item
       )
     );
   };

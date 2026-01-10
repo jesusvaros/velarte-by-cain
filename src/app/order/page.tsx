@@ -120,7 +120,7 @@ export default function OrderPage() {
             <h2 className="text-xl font-bold mb-6">Productos</h2>
             <div className="space-y-6">
               {items.map((item) => (
-                <div key={`${item.slug}-${item.variantId}-${item.name}`} className="flex gap-4 pb-6 border-b border-gray-100 items-center">
+                <div key={`${item.slug}-${item.variantId}-${item.scentId || ''}`} className="flex gap-4 pb-6 border-b border-gray-100 items-center">
                   <div className="relative w-20 h-20 flex-shrink-0 bg-gray-50 rounded-lg overflow-hidden border border-gray-100">
                     {item.image ? (
                       <Image
@@ -138,6 +138,9 @@ export default function OrderPage() {
                   <div className="flex-grow flex justify-between items-start">
                     <div>
                       <h3 className="font-medium text-gray-900">{item.name}</h3>
+                      {item.scentName && (
+                        <p className="text-sm text-gray-600">Aroma: {item.scentName}</p>
+                      )}
                       {item.variantLabel && (
                         <p className="text-sm text-gray-500">{item.variantLabel}</p>
                       )}
@@ -145,14 +148,14 @@ export default function OrderPage() {
                       <div className="mt-4">
                         <QuantitySelector
                           quantity={item.qty}
-                          onChange={(qty) => setQty(item.slug, qty, item.variantId)}
+                          onChange={(qty) => setQty(item.slug, qty, item.variantId, item.scentId)}
                         />
                       </div>
                     </div>
                     <div className="text-right">
                       <p className="font-semibold text-gray-900">{formatPrice(item.unitPrice * item.qty)}</p>
                       <button
-                        onClick={() => removeItem(item.slug, item.variantId)}
+                        onClick={() => removeItem(item.slug, item.variantId, item.scentId)}
                         className="mt-4 text-gray-400 hover:text-red-500 transition-colors"
                       >
                         <Trash2 className="w-5 h-5" />
@@ -233,7 +236,7 @@ export default function OrderPage() {
                 <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wider">Dirección de Entrega</h3>
               </div>
 
-              {shippingMethod !== 'recogida' ? (
+              {shippingMethod !== 'recogida' && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="md:col-span-2">
                     <label className="block text-sm font-medium text-gray-700 mb-1">Calle y número</label>
@@ -266,7 +269,9 @@ export default function OrderPage() {
                     />
                   </div>
                 </div>
-              ) : (
+              )}
+
+              {shippingMethod === 'recogida' && (
                 <div className="p-4 bg-zinc-100 rounded-lg text-sm text-zinc-600 italic">
                   Has seleccionado recogida local. No es necesario introducir dirección de envío.
                 </div>

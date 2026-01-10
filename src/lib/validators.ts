@@ -6,6 +6,8 @@ export const CartItemSchema = z.object({
   image: z.string().optional(),
   variantId: z.string().optional(),
   variantLabel: z.string().optional(),
+  scentId: z.string().optional(),
+  scentName: z.string().optional(),
   unitPrice: z.number().positive(),
   qty: z.number().int().min(1).max(99),
 });

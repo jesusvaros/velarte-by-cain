@@ -105,10 +105,12 @@ export default function ProductDetail({ product, initialScentId }: ProductDetail
       selectedScents.forEach((selection) => {
         addItem({
           slug: product.slug,
-          name: `${product.name} - ${selection.scent.name}`,
+          name: product.name,
           image: selection.scent.image || product.images[0],
           variantId: selectedVariant?.id,
           variantLabel: selectedVariant?.label,
+          scentId: selection.scent.id,
+          scentName: selection.scent.name,
           unitPrice: selectedVariant?.price || product.priceFrom,
           qty: selection.count,
         });
