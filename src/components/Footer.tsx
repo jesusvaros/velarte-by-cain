@@ -10,11 +10,11 @@ export function Footer() {
           <div>
             <div className="mb-4">
               <Image
-                src="/logo-final.png"
+                src="/logo-redondo.png"
                 alt="Velarte by Caín"
-                width={120}
-                height={35}
-                className="h-8 w-auto"
+                width={80}
+                height={80}
+                className="h-20 w-auto"
               />
             </div>
             <p className="text-sm text-gray-600 leading-relaxed">
