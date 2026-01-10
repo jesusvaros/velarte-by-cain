@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
   
   if (!rateLimit(ip)) {
     return NextResponse.json(
-      { error: 'Too many requests. Please try again later.' },
+      { error: 'Demasiadas solicitudes. Por favor, inténtalo de nuevo más tarde.' },
       { status: 429 }
     );
   }
@@ -18,7 +18,17 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     
     // Validate request
-    const validatedData = OrderRequestSchema.parse(body);
+    const result = OrderRequestSchema.safeParse(body);
+    
+    if (!result.success) {
+      const errorMessages = result.error.issues.map(issue => issue.message).join('. ');
+      return NextResponse.json(
+        { error: `Error de validación: ${errorMessages}` },
+        { status: 400 }
+      );
+    }
+
+    const validatedData = result.data;
     
     // Honeypot check
     if (validatedData.customer.honeypot) {
@@ -31,54 +41,56 @@ export async function POST(req: NextRequest) {
     const itemsList = items
       .map(
         (item) =>
-          `- ${item.name}${item.variantLabel ? ` (${item.variantLabel})` : ''}: ${item.qty} x ${formatPrice(
+          `- ${item.name}${item.scentName ? ` [Aroma: ${item.scentName}]` : ''}${item.variantLabel ? ` (${item.variantLabel})` : ''}: ${item.qty} x ${formatPrice(
             item.unitPrice
           )} = ${formatPrice(item.unitPrice * item.qty)}`
       )
       .join('\n');
 
     const emailText = `
-New Order Request from ${customer.name}
+Nueva solicitud de pedido de ${customer.name}
 
-Customer Details:
-Name: ${customer.name}
+Detalles del cliente:
+Nombre: ${customer.name}
 Email: ${customer.email}
-Phone: ${customer.phone || 'N/A'}
+Teléfono: ${customer.phone || 'No proporcionado'}
 
-${shipping.method !== 'Recogida gratuita en Mairena del Aljarafe (Sevilla)' ? `Shipping Address:
-Street: ${customer.address}
-City: ${customer.city}
-Postal Code: ${customer.postalCode}` : 'Shipping Method: Local Pickup'}
+${shipping.method !== 'Recogida gratuita en Mairena del Aljarafe (Sevilla)' ? `Dirección de envío:
+Calle: ${customer.address}
+Ciudad: ${customer.city}
+Código Postal: ${customer.postalCode}` : 'Método de envío: Recogida Local'}
 
-Order Summary:
+Resumen del pedido:
 ${itemsList}
 
-Shipping Method:
+Método de envío:
 ${shipping.method} (${formatPrice(shipping.price)})
 
-Total Estimate (including shipping):
+Total estimado (incluyendo envío):
 ${formatPrice(total)}
 
-Customer Note:
-${customer.note || 'No note provided.'}
+Nota del cliente:
+${customer.note || 'Sin notas adicionales.'}
     `.trim();
 
     // Send email to shop owner
     const ownerEmail = process.env.ORDERS_EMAIL || 'xjesusvr@gmail.com';
     const emailResult = await sendOrderEmail({
       to: ownerEmail,
-      subject: `New Order Request: ${customer.name}`,
+      subject: `Nueva solicitud de pedido: ${customer.name}`,
       text: emailText,
     });
 
     if (!emailResult.success) {
-      throw new Error('Failed to send email');
+      throw new Error('No se pudo enviar el correo electrónico');
     }
 
     return NextResponse.json({ ok: true });
   } catch (error: unknown) {
     console.error('API Error:', error);
-    const message = error instanceof Error ? error.message : 'Internal Server Error';
+    let message = 'Error interno del servidor';
+    if (error instanceof Error) message = error.message;
+    
     return NextResponse.json(
       { error: message },
       { status: 400 }

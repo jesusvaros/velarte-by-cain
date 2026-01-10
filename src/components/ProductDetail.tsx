@@ -78,16 +78,18 @@ export default function ProductDetail({ product, initialScentId }: ProductDetail
 
   const handleAddToCart = () => {
     if (product.category === 'wax-melts' && product.slug !== 'pack-iniciacion-wax-melts') {
-      const scentLabel = selectedScents.length > 0 
-        ? selectedScents.map(s => `${s.count}x ${s.scent.name}`).join(', ')
-        : 'Sin aroma seleccionado';
+      const scentsSummary = selectedScents
+        .map(s => `${s.count}x ${s.scent.name}`)
+        .join(', ');
 
       addItem({
         slug: product.slug,
         name: product.name,
         image: product.images[0],
         variantId: selectedVariant?.id,
-        variantLabel: `${selectedVariant?.label ? selectedVariant.label : ''} - ${scentLabel}`,
+        variantLabel: selectedVariant?.label,
+        scentId: selectedScents.map(s => `${s.scent.id}:${s.count}`).join('|'),
+        scentName: scentsSummary,
         unitPrice: selectedVariant?.price || product.priceFrom,
         qty: quantity,
       });
