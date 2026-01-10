@@ -22,12 +22,20 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     const savedCart = localStorage.getItem('cart');
     if (savedCart) {
       try {
-        setItems(JSON.parse(savedCart));
+        const parsed = JSON.parse(savedCart);
+        if (parsed && Array.isArray(parsed) && parsed.length > 0) {
+          requestAnimationFrame(() => {
+            setItems(parsed);
+          });
+        }
       } catch (e) {
         console.error('Failed to parse cart', e);
       }
     }
-    setIsInitialized(true);
+    
+    requestAnimationFrame(() => {
+      setIsInitialized(true);
+    });
   }, []);
 
   useEffect(() => {
